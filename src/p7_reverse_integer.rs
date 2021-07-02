@@ -31,7 +31,23 @@ pub struct Solution {}
 
 impl Solution {
     pub fn reverse(x: i32) -> i32 {
+        let mut res = 0;
+        let mut sign = 1;
 
+        if x < 0 {
+            sign = -1;
+        }
+
+        let mut x = x.abs();
+        while x > 0 {
+            let new = res * 10 + x % 10;
+            if (new - x % 10) / 10 != res {
+                return 0;
+            }
+            res = new;
+            x = x / 10
+        }
+        return res * sign;
     }
 }
 
@@ -41,8 +57,8 @@ mod tests {
 
     #[test]
     fn reverse_test() {
-        assert_eq!(vec![0, 1], Solution::two_sum(vec![2, 7, 11, 15], 9));
-        assert_eq!(vec![1, 2], Solution::two_sum(vec![3, 2, 4], 6));
+        assert_eq!(4321, Solution::reverse(1234));
+        assert_eq!(4433, Solution::reverse(3344));
     }
 }
 
