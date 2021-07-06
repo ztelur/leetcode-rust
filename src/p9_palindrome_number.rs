@@ -1,3 +1,4 @@
+
 /**
 https://leetcode.com/problems/palindrome-number/
 Given an integer x, return true if x is palindrome integer.
@@ -39,6 +40,29 @@ pub struct Solution {}
 
 impl Solution {
     pub fn is_palindrome(x: i32) -> bool {
+        if x < 0 || (x % 10 == 0 && x != 0) {
+            return false
+        }
+        let mut itr = x;
+        let mut num = 0;
+        let mut rem;
+        while itr > 0 {
+            rem = itr % 10;
+            num = num * 10 + rem;
+            itr = itr / 10;
+        }
+        return num == x;
+    }
+}
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test() {
+        assert_eq!(true, Solution::is_palindrome(121));
+        assert_eq!(false, Solution::is_palindrome(-11));
+        assert_eq!(false, Solution::is_palindrome(12332));
     }
 }
