@@ -27,6 +27,20 @@ pub struct Solution {}
 
 impl Solution {
     pub fn longest_common_prefix(strs: Vec<String>) -> String {
+        if strs.len() == 0 {
+            return "".to_string();
+        }
 
+        let min_len = strs.iter().map(|s| s.len()).min().unwrap();
+
+        for i in 0..min_len {
+            let ch = strs[0].chars().nth(i).unwrap();
+            for s in &strs {
+                if s.chars().nth(i).unwrap() != ch {
+                    return s[0..i].to_string();
+                }
+            }
+        }
+        return strs[0][..min_len].to_string();
     }
 }
