@@ -37,12 +37,29 @@ s consists of parentheses only '()[]{}'.
 
 
 给出算法的时间复杂度和空间复杂度，以及算法所使用的思维
+
+stack ！！！ 解决线性配对问题
 **/
 
 pub struct Solution {}
 
 impl Solution {
     pub fn is_valid(s: String) -> bool {
-
+        let mut stack = Vec::new();
+        for c in s.chars() {
+            let c1 = match c {
+                '(' => ')',
+                '{' => '}',
+                '[' => ']',
+                _ => {
+                    if Some(c) != stack.pop() {
+                        return false;
+                    }
+                    continue;
+                }
+            };
+            stack.push(c1);
+        }
+        return stack.is_empty();
     }
 }
