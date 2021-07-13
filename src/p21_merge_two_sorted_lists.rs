@@ -43,6 +43,34 @@ impl ListNode {
 
 impl Solution {
     pub fn merge_two_lists(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+      let mut result_head = ListNode::new(0);
+      let mut current_head = &mut result_head;
+      let mut l1_current = l1;
+      let mut l2_current = l2;
 
+      while l1_current.is_some() && l2_current.is_some() {
+        let mut l1_d = l1_current.take();
+        let mut l2_d = l2_current.take();
+
+        if let (Some(mut l1_head), Some(mut l2_head)) = (l1_d, l2_d) {
+          if l1_head.val <= l2_head.val {
+            l1_current = l1_head.next.take();
+            l2_current = Some(l2_head);
+            current_head = current_head.next.get_or_insert(l1_head);
+          } else {
+            l2_current = l2_head.next.take();
+            l1_current = Some(l1_head);
+            current_head = current_head.next.get_or_insert(l2_head);
+          }
+        }
+      }
+      if l1_current.is_some() {
+        current_head.next = l1_current
+      }
+      if l2_current.is_some() {
+        current_head.next = l2_current
+      }
+
+      return result_head.next;
     }
 }
