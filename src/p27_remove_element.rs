@@ -55,6 +55,16 @@ pub struct Solution {}
 
 impl Solution {
     pub fn remove_element(nums: &mut Vec<i32>, val: i32) -> i32 {
-
+        if nums.is_empty() {
+            return 0;
+        }
+        let mut pre = 0;
+        for i in 0..nums.len() {
+            if nums[i] != val {
+                nums[pre] = nums[i];
+                pre += 1
+            }
+        }
+        return (pre) as i32;
     }
 }
