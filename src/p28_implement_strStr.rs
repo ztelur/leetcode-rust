@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 /**
 https://leetcode.com/problems/implement-strstr/
 
@@ -37,6 +39,65 @@ pub struct Solution {}
 
 impl Solution {
     pub fn str_str(haystack: String, needle: String) -> i32 {
+        match (haystack.len(), needle.len()) {
+            (0, 0) => return 0,
+            (0, ..) => return -1,
+            (.., 0) => return 0,
+            _ => -1
+        };
+
+
+        let hay : Vec<char> = haystack.chars().collect();
+        let nee : Vec<char> = needle.chars().collect();
+
+        for i in 0..hay.len() {
+            if hay[i] != nee[0] {
+                continue
+            }
+
+            let mut first = i as i32;
+            let mut j = i + 1;
+
+            for k in 1..nee.len() {
+                if j >= hay.len() {
+                    return -1;
+                }
+                if hay[j] == nee[k] {
+                    j += 1;
+                } else {
+                    first = -1;
+                    break;
+                }
+            }
+
+            if first != -1 {
+                return first;
+            }
+        }
+        return -1;
+    }
+
+    fn bad_character_table(pattern: &Vec<char>) -> HashMap<char, usize> {
+        let mut table = HashMap::new();
+        let m = pattern.len();
+
+        for i in 0..m-1 {
+            table.insert(pattern[i],m - 1 - i);
+        }
+        return table;
+    }
+
+    fn suffix_length_table(pattern: &Vec<char>) -> Vec<usize> {
+        let m = pattern.len();
 
     }
+
+
+
+    // Boyer- Moore算法
+    pub fn str_str2(haystack: String, needle: String) -> i32 {
+
+    }
+
+    // KMP 算法
 }
