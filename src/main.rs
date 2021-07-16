@@ -9,6 +9,7 @@ mod p26_remove_duplicates_from_sorted_array;
 mod p80_remove_duplicates_from_sorted_array_2;
 mod p27_remove_element;
 mod p28_implement_strStr;
+mod p35_search_insert_position;
 
 
 fn main() {
