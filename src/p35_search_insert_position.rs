@@ -1,4 +1,5 @@
 use std::panic::resume_unwind;
+use std::cmp::Ordering;
 
 /**
 https://leetcode.com/problems/search-insert-position/
@@ -47,15 +48,43 @@ pub struct Solution {}
 
 impl Solution {
 
-    fn b_search(nums: Vec<i32>, target: i32, left : i32, right : i32) {
-        let l = nums.len();
+    pub fn b_search(nums: Vec<i32>, target: i32, left : i32, right : i32) -> i32 {
+        if (left >= right) {
+            return left;
+        }
 
+        let mid = (left + right) / 2;
+        let itr = nums[mid];
+        if itr == target {
+            return mid;
+        } else if itr > target {
+            return b_search(nums, target, left, mid - 1)
+        } else {
+            return b_search(nums, target, mid + 1, right)
+        }
     }
 
+    // pub fn search_insert(nums: Vec<i32>, target: i32) -> i32 {
+    //     if nums.is_empty() {
+    //         return 0 as i32;
+    //     }
+    //     let len = nums.len();
+    //     return b_search(nums, target, 0, len - 1);
+    // }
+
     pub fn search_insert(nums: Vec<i32>, target: i32) -> i32 {
-        if nums.is_empty() {
-            return 0 as i32;
+        let (mut low, mut high) = (0i32, nums.len() as i32 - 1);
+
+        while low <= high {
+            let mid = low + (high - low) / 2;
+
+            match nums[mid as usize].cmp(&target) {
+                Ordering::Equal => { return mid; }
+                Ordering::Greater => { high = mid - 1; }
+                Ordering::Less => { low = mid + 1; }
+            }
         }
-        return b_search(nums, target, 0, nums.len() - 1);
+
+        low
     }
 }
