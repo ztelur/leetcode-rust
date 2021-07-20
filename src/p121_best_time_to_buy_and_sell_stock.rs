@@ -50,10 +50,18 @@ Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-
 Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
 
 **/
+use std::cmp;
+
 pub struct Solution {}
 
 impl Solution {
     pub fn max_profit(prices: Vec<i32>) -> i32 {
-
+        let mut profit = 0;
+        let mut min_price = std::i32::MAX;
+        for n in prices {
+            profit = profit.max(n - min_price);
+            min_price = min_price.min(n);
+        }
+        profit
     }
 }

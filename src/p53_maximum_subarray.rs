@@ -30,6 +30,7 @@ Follow up: If you have figured out the O(n) solution, try coding another solutio
 
 divide-and-conquer dp
 **/
+pub struct Solution {}
 
 impl Solution {
     pub fn max_sub_array(nums: Vec<i32>) -> i32 {

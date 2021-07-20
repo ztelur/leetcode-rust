@@ -48,22 +48,6 @@ pub struct Solution {}
 
 impl Solution {
 
-    pub fn b_search(nums: Vec<i32>, target: i32, left : i32, right : i32) -> i32 {
-        if (left >= right) {
-            return left;
-        }
-
-        let mid = (left + right) / 2;
-        let itr = nums[mid];
-        if itr == target {
-            return mid;
-        } else if itr > target {
-            return b_search(nums, target, left, mid - 1)
-        } else {
-            return b_search(nums, target, mid + 1, right)
-        }
-    }
-
     // pub fn search_insert(nums: Vec<i32>, target: i32) -> i32 {
     //     if nums.is_empty() {
     //         return 0 as i32;
