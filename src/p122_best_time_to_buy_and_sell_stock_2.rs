@@ -1,3 +1,6 @@
+use std::thread::sleep;
+use std::cmp::max;
+
 /**
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
 
@@ -34,27 +37,40 @@ Constraints:
 1 <= prices.length <= 3 * 104
 0 <= prices[i] <= 104
 
+
+
+!!!!!!!!!!!!!
 **/
 
 pub struct Solution {}
 
 impl Solution {
+    // Non Dp Approach.
     pub fn max_profit(prices: Vec<i32>) -> i32 {
         let mut profit = 0;
-        let mut total = 0;
-        let mut min = std::i32::MAX;
 
-        for n in prices {
-            profit = profit.max(n - min);
-            if n < min {
-                min = n;
-                total += profit;
-                profit = 0;
-                print!("min {}, total {} profilt{}", min, total, profit)
+        for i in 0..prices.len() -1 {
+            if prices[i + 1] > prices[i] {
+                profit = profit + (prices[i + 1] - prices[i])
             }
         }
-        return total;
+        return profit;
     }
+    // dp
+    pub fn max_profit_dp(prices: Vec<i32>) -> i32 {
+
+        let mut buy = vec!(0 as i32, prices.len() as i32);
+        let mut sell = vec!(0 as i32, prices.len() as i32);
+        buy[0] = -1 * prices[0];
+        println!("ddd {} {}", buy.len(), prices.len() as i32);
+
+        for i in 1..(prices.len() -1) {
+            buy[i] = max(buy[i -1],sell[i - 1]- prices[i]);
+            sell[i] = max(sell[i - 1], buy[i -1] + prices[i]);
+        }
+        return sell[sell.len()-1];
+    }
+
 }
 
 #[cfg(test)]
@@ -63,6 +79,6 @@ mod tests {
 
     #[test]
     fn test() {
-        assert_eq!(7, Solution::max_profit(vec![7,1,5,3,6,4]));
+        assert_eq!(7, Solution::max_profit_dp(vec![7,1,5,3,6,4]));
     }
 }
