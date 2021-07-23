@@ -14,6 +14,7 @@ mod p121_best_time_to_buy_and_sell_stock;
 mod p53_maximum_subarray;
 mod p122_best_time_to_buy_and_sell_stock_2;
 mod p70_climbing_stairs;
+mod p118_pascals_triangle;
 
 
 fn main() {
