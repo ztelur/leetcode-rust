@@ -19,6 +19,8 @@ mod p22_generate_parentheses;
 mod p17_letter_combinations_of_a_phone_number;
 mod p39_combination_sum;
 mod p77_combinations;
+mod p47_permutations_2;
+mod p46_permutations;
 
 
 fn main() {
