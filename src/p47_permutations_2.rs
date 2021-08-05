@@ -68,13 +68,18 @@ impl Solution {
                 // 排序后，可以保证相同的num只取一个
                 if i == 0 || nums[i] != nums[i - 1] {
                     let (mut nums_c, mut cur_c) = (nums.to_vec(), cur.to_vec());
-
+                    nums_c.remove(i as usize);
+                    cur_c.push(*v);
+                    backtrack(&nums_c, &cur_c,res);
                 }
             }
-
-
         }
 
+        let mut res: Vec<Vec<i32>> = vec![];
+        let mut nums = nums;
         nums.sort_unstable();
+
+        backtrack(&nums, &vec![], &mut res);
+        return res;
     }
 }

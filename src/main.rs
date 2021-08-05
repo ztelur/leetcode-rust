@@ -21,6 +21,8 @@ mod p39_combination_sum;
 mod p77_combinations;
 mod p47_permutations_2;
 mod p46_permutations;
+mod p31_next_permutation;
+mod p638_shopping_offers;
 
 
 fn main() {
