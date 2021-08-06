@@ -23,6 +23,7 @@ mod p47_permutations_2;
 mod p46_permutations;
 mod p31_next_permutation;
 mod p638_shopping_offers;
+mod p131_palindrome_partitioning;
 
 
 fn main() {

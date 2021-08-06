@@ -1,5 +1,5 @@
-use std::iter::Map;
-use std::cmp::min;
+use std::collections::HashMap;
+
 
 /**
 https://leetcode.com/problems/shopping-offers/
@@ -39,35 +39,53 @@ You cannot add more items, though only $9 for 2A ,2B and 1C.
 pub struct Solution {}
 
 impl Solution {
-    fn backtrack(price: &Vec<i32>, special: &Vec<Vec<i32>>, cur_need: &Vec<i32>) -> i32 {
-        let (mut j, mut res) = (0, Solution::dot(price, cur_need));
-        for i in special.iter() {
-            let mut clone = cur_need.clone();
-            for j in 0..cur_need.len() {
-                let diff = clonse[j] - &special[j];
-                if diff < 0 {
-                    break;
-                }
-                clonse[j] = diff;
-            }
-            if j == cur_need.len() {
-                res = min(res, &special[j] + Solution::backtrack(price, special, clone));
-            }
-        }
-        return res;
+    pub fn shopping_offers(price: Vec<i32>, mut special: Vec<Vec<i32>>, needs: Vec<i32>) -> i32 {
+        let mut cache = HashMap::new();
+        cache.insert(vec![0; needs.len()], 0);
+
+        // Remove specials that aren't actually a good deal
+        // 去掉总包本身就比单价贵的special
+        special.retain(|v| {
+            v.last().unwrap() < &(0..price.len()).fold(0, |acc, i| acc + price[i] * v[i])
+        });
+
+        Self::go(&mut cache, &price, special.iter().collect(), needs)
     }
 
-    fn dot(a: &Vec<i32>, b: &Vec<i32>) -> i32 {
-        let mut sum = 0;
-        for index in 0..a.len() {
-            sum = sum + a[index] * b[index];
+    fn go(
+        cache: &mut HashMap<Vec<i32>, i32>,
+        price: &Vec<i32>,
+        special: Vec<&Vec<i32>>,
+        needs: Vec<i32>,
+    ) -> i32 {
+        // 如果找到对应的最优解，直接返回
+        if cache.contains_key(&needs) {
+            *cache.get(&needs).unwrap()
+        } else {
+            // 先计算出need和price想乘对应的价格
+            let mut min_price = (0..needs.len()).fold(0, |acc, i| acc + needs[i] * price[i]);
+            // 找出所有可行的special
+            let relevant_specials = special
+                .iter()
+                .filter(|v| (0..needs.len()).all(|i| v[i] <= needs[i]))
+                .cloned()
+                .collect::<Vec<&Vec<i32>>>();
+
+            for s in &relevant_specials {
+                // 想减掉
+                let new_needs = (0..needs.len())
+                    .map(|i| needs[i] - s[i])
+                    .collect::<Vec<i32>>();
+                // 然后继续遍历
+                min_price = min_price.min(
+                    s.last().unwrap()
+                        + Self::go(cache, price, relevant_specials.clone(), new_needs),
+                );
+            }
+
+            cache.insert(needs, min_price);
+
+            min_price
         }
-        return sum;
-    }
-
-    pub fn shopping_offers(price: Vec<i32>, special: Vec<Vec<i32>>, needs: Vec<i32>) -> i32 {
-
-
-
     }
 }
