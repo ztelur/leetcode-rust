@@ -24,6 +24,8 @@ mod p46_permutations;
 mod p31_next_permutation;
 mod p638_shopping_offers;
 mod p131_palindrome_partitioning;
+mod p89_gray_code;
+mod p93_restore_ip_addresses;
 
 
 fn main() {
