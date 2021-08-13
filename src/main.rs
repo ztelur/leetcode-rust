@@ -27,6 +27,7 @@ mod p131_palindrome_partitioning;
 mod p89_gray_code;
 mod p93_restore_ip_addresses;
 mod p78_subsets;
+mod p5_longest_palindromic_substring;
 
 
 fn main() {
