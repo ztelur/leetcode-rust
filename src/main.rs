@@ -28,6 +28,8 @@ mod p89_gray_code;
 mod p93_restore_ip_addresses;
 mod p78_subsets;
 mod p5_longest_palindromic_substring;
+mod p91_decode_ways;
+mod p62_unique_paths;
 
 
 fn main() {

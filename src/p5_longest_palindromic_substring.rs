@@ -107,6 +107,39 @@ pub struct Solution {}
 
 impl Solution {
     pub fn longest_palindrome(s: String) -> String {
+        if s.is_empty() {
+            return String::from("");
+        }
 
+        let mut start = 0;
+        let mut end = 0;
+
+        let chs: Vec<char> = s.chars().collect();
+        // 初始化m * m 的大小
+        let mut f = vec![vec![false;chs.len()];chs.len()];
+
+        // 从 0 开始，遍历到 m
+        for j in 0..chs.len() {
+
+            let mut i = 0;
+            // 单字母一定是true
+            f[j][j] = true;
+            // i 是 start j 是 end
+            while i <= j {
+                // 推进关系
+                //
+                f[i][j] = (chs[j] == chs[i] && (j - i < 2 || j > 0 && f[i+1][j-1]));
+
+                if f[i][j] {
+                    // 如果这个长度超出目前的，则替换
+                    if (j - i + 1) > (end - start) {
+                        start = i;
+                        end = j + 1;
+                    }
+                }
+                i += 1;
+            }
+        }
+        return chs[start..end].iter().collect::<String>()
     }
 }
