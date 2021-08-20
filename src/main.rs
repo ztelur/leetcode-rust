@@ -30,6 +30,8 @@ mod p78_subsets;
 mod p5_longest_palindromic_substring;
 mod p91_decode_ways;
 mod p62_unique_paths;
+mod p139_word_break;
+mod p152_maximum_product_subarray;
 
 
 fn main() {
