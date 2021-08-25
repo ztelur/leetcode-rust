@@ -32,6 +32,9 @@ mod p91_decode_ways;
 mod p62_unique_paths;
 mod p139_word_break;
 mod p152_maximum_product_subarray;
+mod p198_house_robber;
+mod p55_jump_game;
+mod p2_add_two_numbers;
 
 
 fn main() {
