@@ -35,6 +35,7 @@ mod p152_maximum_product_subarray;
 mod p198_house_robber;
 mod p55_jump_game;
 mod p2_add_two_numbers;
+mod p8_string_to_integer_atoi;
 
 
 fn main() {
