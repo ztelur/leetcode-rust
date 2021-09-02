@@ -1,4 +1,3 @@
-use core::num::flt2dec::strategy::grisu::cached_power;
 
 /**
 https://leetcode.com/problems/palindrome-partitioning/
@@ -130,7 +129,7 @@ impl Solution {
         if let Some(result) = cache[i][j] {
             result
         } else {
-            let result = s[i] == s[j] && (i + 1 > s.len() || j < 1 || Solution::is_palindrome1(cache, s, i+1, j-1));
+            let result = s[i] == s[j] && (i + 1 > s.len() || j < 1 || Self::is_palindrome2(cache, s, i+1, j-1));
             cache[i][j] = Some(result);
             result
         }

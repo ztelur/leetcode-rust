@@ -90,7 +90,7 @@ impl Solution {
 
         let mut num_to_letter = vec!["", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"];
 
-        fn combs(out: &mut Vec<String>, cur: &mut Vec<char>, digits: &str, num_to_letter: &Vec<&Str>) {
+        fn combs(out: &mut Vec<String>, cur: &mut Vec<char>, digits: &str, num_to_letter: &Vec<&str>) {
             match digits.chars().next() {
                 None => out.push(cur.iter().collect()),
                 Some(c) => {

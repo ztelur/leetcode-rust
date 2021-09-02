@@ -44,11 +44,11 @@ impl Solution {
                 sum = old[0];
             }
             for j in 0..m {
-                dp[j] = sum + old[i] + sum;
+                dp[j as usize] = sum + old[i as usize] + sum;
             }
             old = dp.clone();
         }
-        return dp[m]
+        return dp[m as usize]
     }
 
     //

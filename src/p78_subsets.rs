@@ -30,7 +30,7 @@ impl Solution {
     pub fn subsets(nums: Vec<i32>) -> Vec<Vec<i32>> {
         let mut set = vec![];
         let mut res = vec![];
-        Solution::helper(&nums, 0, &mut set, &mut res)
+        Solution::helper(&nums, 0, &mut set, &mut res);
         return res;
     }
 

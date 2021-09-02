@@ -48,7 +48,7 @@ impl Solution {
         }
 
         let mut res: Vec<Vec<i32>> = vec![];
-        backtrack(&nums, &vec![], res);
+        backtrack(&nums, &vec![], &mut res);
         return res;
     }
 }

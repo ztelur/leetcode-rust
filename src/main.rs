@@ -36,6 +36,11 @@ mod p198_house_robber;
 mod p55_jump_game;
 mod p2_add_two_numbers;
 mod p8_string_to_integer_atoi;
+mod p16_3sum_closest;
+mod p15_3sum;
+mod p43_multiply_strings;
+mod p36_valid_sudoku;
+mod p37_sudoku_solver;
 
 
 fn main() {

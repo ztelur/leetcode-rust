@@ -51,28 +51,28 @@ pub struct Solution{}
 
 impl Solution {
 
-    impl Solution {
-        fn helper(res: &mut Vec<String>, par: String, n: i32, m: i32) {
-            if n == 0 && m == 0 {
-                res.push(par);
-                return;
-            }
-
-            if n > 0 {
-                Self::helper(res, par.clone() + &"(", n-1, m + 1);
-            }
-
-            if m > 0 {
-                Self::helper(res, par.clone() + &")", n, m -1);
-            }
-        }
-
-        pub fn generate_parenthesis(n: i32) -> Vec<String> {
-            let mut res: Vec<String> = Vec::new();
-            Self::helper(&mut res, String::from(""), n , 0);
-            return res;
-        }
-    }
+    // impl Solution {
+    //     fn helper(res: &mut Vec<String>, par: String, n: i32, m: i32) {
+    //         if n == 0 && m == 0 {
+    //             res.push(par);
+    //             return;
+    //         }
+    //
+    //         if n > 0 {
+    //             Self::helper(res, par.clone() + &"(", n-1, m + 1);
+    //         }
+    //
+    //         if m > 0 {
+    //             Self::helper(res, par.clone() + &")", n, m -1);
+    //         }
+    //     }
+    //
+    //     pub fn generate_parenthesis(n: i32) -> Vec<String> {
+    //         let mut res: Vec<String> = Vec::new();
+    //         Self::helper(&mut res, String::from(""), n , 0);
+    //         return res;
+    //     }
+    // }
 
     pub fn generate_parenthesis2(n: i32) -> Vec<String> {
         fn back_track(s: String, open: i32, close: i32) -> Vec<String> {
