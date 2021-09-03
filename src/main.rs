@@ -41,6 +41,7 @@ mod p15_3sum;
 mod p43_multiply_strings;
 mod p36_valid_sudoku;
 mod p37_sudoku_solver;
+mod p48_rotate_image;
 
 
 fn main() {
