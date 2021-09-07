@@ -42,6 +42,8 @@ mod p43_multiply_strings;
 mod p36_valid_sudoku;
 mod p37_sudoku_solver;
 mod p48_rotate_image;
+mod p3_longest_substring_without_repeating_characters;
+mod p4_median_of_two_sorted_arrays;
 
 
 fn main() {
