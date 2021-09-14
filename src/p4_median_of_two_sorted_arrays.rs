@@ -35,6 +35,13 @@ Output: 2.00000
 
 在两个列表上进行二分查找
 
+
+
+解题思路
+https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/he-bing-yi-hou-zhao-gui-bing-guo-cheng-zhong-zhao-/
+官方
+https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/xun-zhao-liang-ge-you-xu-shu-zu-de-zhong-wei-s-114/
+
 **/
 
 pub struct Solution {}
@@ -56,9 +63,11 @@ impl Solution {
 
         let mut part_x;
         let mut part_y;
-
+        // 两个的数组的排序中位数
         while low <= high {
+
             part_x = (low + high) / 2;
+            // 两个数组长度的一半- 说明是
             part_y = (first.len() + second.len() + 1) / 2 - part_x;
 
             let one_left = if part_x == 0 { std::i32::MIN } else { first[part_x - 1] };

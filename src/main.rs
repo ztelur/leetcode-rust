@@ -44,6 +44,9 @@ mod p37_sudoku_solver;
 mod p48_rotate_image;
 mod p3_longest_substring_without_repeating_characters;
 mod p4_median_of_two_sorted_arrays;
+mod p11_container_with_most_water;
+mod p42_trapping_rain_water;
+mod p18_4Sum;
 
 
 fn main() {
