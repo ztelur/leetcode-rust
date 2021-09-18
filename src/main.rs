@@ -48,6 +48,8 @@ mod p11_container_with_most_water;
 mod p42_trapping_rain_water;
 mod p18_4Sum;
 mod p454_4Sum_II;
+mod p6_zigzag_conversion;
+mod p10_regular_expression_matching;
 
 
 fn main() {

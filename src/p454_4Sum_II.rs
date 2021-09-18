@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 /**
 https://leetcode.com/problems/4sum-ii/
 
@@ -26,7 +28,22 @@ pub struct Solution {}
 
 
 impl Solution {
-    pub fn four_sum_count(nums1: Vec<i32>, nums2: Vec<i32>, nums3: Vec<i32>, nums4: Vec<i32>) -> i32 {
+    pub fn four_sum_count(mut nums1: Vec<i32>, mut nums2: Vec<i32>, mut nums3: Vec<i32>, mut nums4: Vec<i32>) -> i32 {
+        let mut ans = 0;
+        let mut map= HashMap::new();
 
+        for i in 0..nums1.len() {
+            for j in 0..nums2.len() {
+                *map.entry(nums1[i] + nums2[j]).or_insert(0) += 1;
+            }
+        }
+
+        for i in 0..nums3.len() {
+            for j in 0..nums4.len() {
+                ans += map.get(&(0 - nums3[i] - nums4[j])).unwrap_or(&0);
+            }
+        }
+
+        return ans;
     }
 }
