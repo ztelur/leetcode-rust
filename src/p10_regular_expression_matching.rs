@@ -52,12 +52,39 @@ two point
 dp
 
 
+Approach 1: Recursion
+Approach 2: Dynamic Programming
+
+
+
 
 **/
 
 pub struct Solution {}
 
 impl Solution {
+
+
+    pub fn is_match(s: String, p: String) -> bool {
+        fn is_match_str(s: &str, p: &str) -> bool {
+            let (s_len, p_len) = (s.len(), p.len());
+            if p_len == 0 {
+                return s_len == 0;
+            }
+            // 46 is .
+            let m = { s_len >0 && (s.as_bytes()[0] == p.as_bytes()[0] || p.as_bytes()[0] == 46 )};
+            // 43 is *
+            if p_len > 2 && p.as_bytes()[1] == 42 {
+                // 分两种情况
+                // 1 跳过*的组合，完全不匹配
+                // 2 进行匹配，当前字段删除掉一位
+                return is_match_str(s, &p[2..]) || (m && is_match_str(&s[1..],p));
+            }
+            // 因为不存在*，所以两个都-1
+            return m && is_match_str(&s[1..], &p[1..]);
+        }
+        return is_match_str(&s,&p);
+    }
 
 
 
