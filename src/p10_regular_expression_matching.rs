@@ -56,7 +56,26 @@ Approach 1: Recursion
 Approach 2: Dynamic Programming
 
 
+class Solution {
+    public boolean isMatch(String text, String pattern) {
+        boolean[][] dp = new boolean[text.length() + 1][pattern.length() + 1];
+        dp[text.length()][pattern.length()] = true;
 
+        for (int i = text.length(); i >= 0; i--){
+            for (int j = pattern.length() - 1; j >= 0; j--){
+                boolean first_match = (i < text.length() &&
+                                       (pattern.charAt(j) == text.charAt(i) ||
+                                        pattern.charAt(j) == '.'));
+                if (j + 1 < pattern.length() && pattern.charAt(j+1) == '*'){
+                    dp[i][j] = dp[i][j+2] || first_match && dp[i+1][j];
+                } else {
+                    dp[i][j] = first_match && dp[i+1][j+1];
+                }
+            }
+        }
+        return dp[0][0];
+    }
+}
 
 **/
 
@@ -71,10 +90,16 @@ impl Solution {
             if p_len == 0 {
                 return s_len == 0;
             }
+            // 46 is .
             let m = { s_len >0 && (s.as_bytes()[0] == p.as_bytes()[0] || p.as_bytes()[0] == 46 )};
-            if p_len > 2 && p.as_bytes()[1] == 42 {
+            // 43 is *
+            if p_len >= 2 && p.as_bytes()[1] == 42 {
+                // 分两种情况
+                // 1 跳过*的组合，完全不匹配
+                // 2 进行匹配，当前字段删除掉一位
                 return is_match_str(s, &p[2..]) || (m && is_match_str(&s[1..],p));
             }
+            // 因为不存在*，所以两个都-1
             return m && is_match_str(&s[1..], &p[1..]);
         }
         return is_match_str(&s,&p);
