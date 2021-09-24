@@ -52,6 +52,8 @@ mod p6_zigzag_conversion;
 mod p10_regular_expression_matching;
 mod p19_remove_nth_node_from_end_of_list;
 mod p12_integer_to_roman;
+mod p23_merge_k_sorted_lists;
+mod p105_construct_binary_tree_from_preorder_and_inorder_traversal;
 
 
 fn main() {
