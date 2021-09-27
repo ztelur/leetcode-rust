@@ -38,11 +38,37 @@ impl TreeNode {
 }
 use std::rc::Rc;
 use std::cell::RefCell;
+use std::collections::BTreeMap;
 
 pub struct Solution {}
 
 impl Solution {
-    pub fn build_tree(preorder: Vec<i32>, inorder: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
 
+    fn calc(preoder: &[i32], inorder: &[i32], i: &mut i32, j: i32, k: i32, table: &BTreeMap<i32, usize>) -> Option<Rc<RefCell<TreeNode>>> {
+      if j > k {
+        return None;
+      }
+
+      // 创建一个节点
+      let mut node = TreeNode::new(preoder[*i as usize]);
+      *i += 1;
+      // 找到值在inorder中的index
+      let p = table[&node.val] as i32;
+      // j p-1 是左侧
+      let left = Self::calc(preoder, inorder, i, j, p-1,table);
+      // p+1 k 是右侧
+      let right = Self::calc(preoder, inorder, i, p+1, k, table);
+      node.left = left;
+      node.right = right;
+      
+      return Some(Rc::new(RefCell::new(node)));
+    }
+
+    pub fn build_tree(preorder: Vec<i32>, inorder: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
+      let mut i = 0;
+      // 将 inorder 转换为 table, 将val和及其index形成hashmap
+      let table = inorder.iter().enumerate().map(|(p, &v)|(v,p)).collect::<BTreeMap<i32, usize>>();
+
+      return Self::calc(&preorder, &inorder, &mut i, 0, preorder.len() as i32 - 1, &table);
     }
 }
