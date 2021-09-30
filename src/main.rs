@@ -57,6 +57,8 @@ mod p105_construct_binary_tree_from_preorder_and_inorder_traversal;
 mod p148_sort_list;
 mod p24_swap_nodes_in_pairs;
 mod p25_reverse_nodes_in_k_group;
+mod p29_divide_two_integers;
+mod p30_substring_with_concatenation_of_all_words;
 
 
 fn main() {
