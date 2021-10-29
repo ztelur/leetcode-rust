@@ -59,6 +59,9 @@ mod p24_swap_nodes_in_pairs;
 mod p25_reverse_nodes_in_k_group;
 mod p29_divide_two_integers;
 mod p30_substring_with_concatenation_of_all_words;
+mod p106_construct_binary_tree_from_inorder_and_postorder_traversal;
+mod p33_search_in_rotated_sorted_array;
+mod p38_count_and_say;
 
 
 fn main() {
