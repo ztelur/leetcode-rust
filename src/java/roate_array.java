@@ -24,22 +24,46 @@ class Solution {
         k = k % len;
 
         assert k < len;
+        int count = gcd(k, len);
+        for (int start = 0; start < count; start ++) {
+            int current = start;
+            int prev = nums[start];
+            do {
+                int next = (current + k) % len;
+                int temp = nums[next];
+                nums[next] = prev;
+                prev = temp;
+                current = next;
 
-        int tmp = nums[0];
-        int curIndex = 0;
-        int count = len;
+            } while (current != start); // 回到原点
+        }
 
-        while (count > 0) {
-            int nextIndex = curIndex + k;
-            if (nextIndex >= len) {
-                nextIndex = nextIndex - len;
-            }
-            int preTmp = tmp;
-            tmp = nums[nextIndex];
-            nums[nextIndex] = preTmp;
 
-            count --;
-            curIndex = nextIndex;
+    }
+    public int gcd(int x, int y) {
+        //
+        return y > 0 ? gcd(y, x % y) : x;
+    }
+
+    public void rotate2(int[] nums, int k) {
+        int len = nums.length;
+        // 取余数
+        k = k % len;
+        reverse(nums, 0, len-1);
+        reverse(nums, 0, k-1);
+        reverse(nums, k , len - 1);
+    }
+
+    void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int tmp = nums[end];
+            nums[end] = nums[start];
+            nums[start] = tmp;
+            start ++;
+            end --;
         }
     }
+
+
+
 }
