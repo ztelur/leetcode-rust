@@ -41,7 +41,6 @@ class Solution {
          * 到了5，它是偶数，需要替换，插入到2的前边 [1,3,5,2,4]
          */
 
-
         // 从 index = 1 也就是 2 开始
         ListNode curr = head.next;
         int index = 1;
