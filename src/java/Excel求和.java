@@ -20,7 +20,7 @@ class Solution {
         int sum = 0;
         // A A len = 2
         for (int i = 0; i < len; i ++) {
-            sum += (columnTitle.charAt(i) - 'A') * (26 ^ (len - i - 1));
+            sum += (columnTitle.charAt(i) - 'A' + 1) * Math.pow(26, (len - i - 1));
         }
         return sum;
     }

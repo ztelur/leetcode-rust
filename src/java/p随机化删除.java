@@ -19,13 +19,13 @@ import java.util.Random;
 class RandomizedSet {
 
     private Map<Integer, Integer> map;
-    private List<Integer> list;
+    private List<Object> list;
     private Random random;
 
 
     public RandomizedSet() {
         map = new HashMap<>();
-        list = new LinkedList<>();
+        list = new ArrayList<>();
         random = new Random();
     }
 
@@ -45,12 +45,12 @@ class RandomizedSet {
         }
 
         map.remove(val);
-        list.remove(location);
+        list.remove(location.intValue());
         return true;
     }
 
     public int getRandom() {
-        return list.get(random.nextInt(list.size()));
+        return (Integer) list.get(random.nextInt(list.size()));
     }
 }
 

@@ -27,7 +27,8 @@ class Solution {
 
         // 注意 head 是不会动的，可以直接返回的
         ListNode preOneNode = head; // 偶数指针
-        ListNode oneNode = head.next; // 奇数指针
+        ListNode oneHeadNode = head.next; // 奇数指针
+        ListNode oneTailNode = head.next;
 
         // [1,2,3,4,5]
         // [0,1,0,1,0]
@@ -48,17 +49,21 @@ class Solution {
         while (curr != null) {
             if (index % 2 == 0) {
                 // 偶数 到了 3，需要插入到原来的 oneNode 前边
-                preOneNode.next = curr;
-                oneNode.next = curr.next;
-                curr.next = oneNode;
+                preOneNode.next = curr; // 1 -> 3  // 1 ——> 3 -> 5
 
-                preOneNode = curr;
-                oneNode = curr.next;
-                curr = oneNode.next;
+                oneTailNode.next = curr.next; // 2 -> 4
+
+                curr.next = oneHeadNode; // 1->3->2->4
+                // 1 3 2 4
+
+                preOneNode = curr;  // 指向3
+                oneHeadNode = curr.next; // 指向 2
+                curr = oneTailNode.next; // 4
                 index ++;
             } else {
-                // 奇数 直接跳过 2 不动
+                // 奇数 直接跳过 2 不动  1 2 3 4 5 6 7
                 index ++;
+                oneTailNode = curr;
                 curr = curr.next;
             }
         }

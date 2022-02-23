@@ -31,7 +31,7 @@ class Solution {
         int total = 0;
         for (int i = 0; i < nums3.length; i ++) {
             for (int j = 0; j < nums4.length; j ++) {
-                int sum = nums3[i] + nums4[i];
+                int sum = nums3[i] + nums4[j];
                 total += countMap.getOrDefault(-sum, 0);
             }
         }
