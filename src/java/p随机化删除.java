@@ -19,7 +19,7 @@ import java.util.Random;
 class RandomizedSet {
 
     private Map<Integer, Integer> map;
-    private List<Object> list;
+    private List<Integer> list;
     private Random random;
 
 
@@ -37,20 +37,25 @@ class RandomizedSet {
         map.put(val, list.size() - 1);
         return true;
     }
-
+    // 题目的关键在于 remove
+    // 并不是直接将其删除，而是将其用最后一个元素代替，然后删除最后一个元素
+    // 0 0 1 1 remove 0 时，如果直接删除，则 1 1 明显是不符合要求的，而进行替换就变成了 1 0 就是正确的了
     public boolean remove(int val) {
-        Integer location = map.get(val);
-        if (location == null) {
-            return false;
-        }
+        if (! map.containsKey(val)) return false;
 
+        // 最后一个元素
+        int lastElement = list.get(list.size() - 1);
+        int index = map.get(val);
+        list.set(index, lastElement);
+        map.put(lastElement, index);
+        list.remove(list.size() - 1);
         map.remove(val);
-        list.remove(location.intValue());
+
         return true;
     }
 
     public int getRandom() {
-        return (Integer) list.get(random.nextInt(list.size()));
+        return list.get(random.nextInt(list.size()));
     }
 }
 

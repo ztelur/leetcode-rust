@@ -19,6 +19,9 @@ package java;
  * }
  */
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 有公共祖先，根据二叉树的规则，那么这个 parent 一定是 大于 p 并且小于 q 的
  * 那么可以根据这个特性进行排查，找到最后一个符合这一特点的就是找到了
@@ -32,32 +35,61 @@ package java;
   }
 
 class Solution {
+     private Map<Integer, TreeNode> parentMap = new HashMap<>();
+     private Map<Integer, Boolean> visitedMap = new HashMap<>();
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        // 从顶向下进行排序
-        TreeNode curr = root;
+        dfs(root);
 
-        // 先假设 p 小于 q， 如果不能做这个假设，则需要自己手动排一下
-
-        TreeNode prev = root;
-        // 公共祖先有可能为其中某一个节点嘛
-        while (curr != null) {
-            if (curr.val >= p.val && curr.val <= q.val) {
-                return curr;
-            } else if (curr.val < p.val) { // 必定小于 q.val
-                curr = curr.right;
-            } else {
-                curr = curr.left;
-            }
+        // 从 p 开始，向上一个一个寻找对应的 parent
+        while (p != null) {
+            visitedMap.put(p.val, true);
+            p = parentMap.get(p.val);
         }
-        return curr;
+
+        while (q != null) {
+            if (visitedMap.getOrDefault(q.val, false)) {
+                return q;
+            }
+
+            q = parentMap.get(q.val);
+        }
+
+        return null;
     }
 
-    private boolean check(TreeNode parent, TreeNode p, TreeNode q) {
-        if (parent.val >= p.val && parent.val <= q.val) {
-            return true;
-        } else {
+    private void dfs(TreeNode root) {
+        if (root.left != null) {
+            parentMap.put(root.left.val, root);
+            dfs(root.left);
+        }
+
+        if (root.right != null) {
+            parentMap.put(root.right.val, root);
+            dfs(root.right);
+        }
+    }
+
+
+    private TreeNode ans;
+
+
+
+    public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
+        this.dfs(root, p, q);
+        return this.ans;
+    }
+
+    private boolean dfs(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
             return false;
         }
+
+        boolean lson = dfs(root.left, p, q);
+        boolean rson = dfs(root.right, p, q);
+        if ((lson && rson) || ((root.val == p.val || root.val == q.val) && (lson || rson))) {
+            ans = root;
+        }
+        return lson || rson || (root.val == p.val || root.val == q.val);
     }
 
-}
+ }
