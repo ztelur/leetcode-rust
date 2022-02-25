@@ -19,23 +19,58 @@ package java;
  * 接着处理 n2，使用相同的场景，直到 i - 1 = 1;
  *
  */
-class Solution {
-    public int numSquares(int n) {
-        int i = 1;
-        while ( i * i <= n) {
-            i ++;
-        }
 
-        int maxPart = i - 1;
-        int j = maxPart;
-        int curr = n;
-        int ans = 0;
-        while (curr > 0) {
-            int inc = curr / j;
-            int delta = curr % j;
-            ans += inc;
-            curr = delta;
+class Solution {
+    /**
+     * 使用动态规划 f(i) = f(m) + f(n); 其中
+     * @param n
+     * @return
+     */
+    public int numSquares(int n) {
+        int[] dp = new int[n + 1];
+        // 16 16 = 1
+        //
+        for (int i = 1; i <= n; i++) {
+            int minn = Integer.MAX_VALUE;
+            for (int j = 1; j * j <= i; j ++) {
+                // 当 16 是，就会是 dp[0]
+                // 假设当前枚举到 jj，那么我们还需要取若干数的平方，构成 i-j^2i−j
+                //2
+                // 。此时我们发现该子问题和原问题类似，只是规模变小了
+                // 然后就是全部都列举，然后取最小值
+                minn = Math.min(minn, dp[i - j * j]);
+            }
+            dp[i] = minn + 1;
         }
-        return ans;
+        return dp[n];
     }
+
+//    错误的实现方式，因为会出现 4 4 4 而不是 9 1 1 1 的方案
+//    public int numSquares(int n) {
+//
+//        int i = 1;
+//        // n = 12 i = 4
+//        while ( i * i <= n) {
+//            i ++;
+//        }
+//
+//        // maxPart = 3
+//        int maxPart = i - 1;
+//        int j = maxPart;
+//        int curr = n;
+//        int ans = 0;
+//        while (curr > 0) {
+//            // inc = 1,0,3
+//            int inc = curr / (j * j);
+//            // delta = 3,3,0
+//            int delta = curr % (j * j);
+//            // ans = 1,1,4
+//            ans += inc;
+//            // cur = 3,3
+//            curr = delta;
+//            // j = 2 1
+//            j = j - 1;
+//        }
+//        return ans;
+//    }
 }

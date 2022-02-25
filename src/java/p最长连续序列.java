@@ -27,12 +27,19 @@ class Solution {
     int maxLen = -1;
     public int longestConsecutive(int[] nums) {
         Set<Integer> set = new HashSet<>();
+
+        /**
+         * 因为是不要求在原数组的位置，所以直接将其转换为set
+         */
         for (int num : nums) {
             set.add(num);
         }
 
         int longestStreak = 0;
 
+        /**
+         * 可以知道，里边一定是一段一段的，先找到每段的最小数，然后进行遍历，找出最长的距离
+         */
         // 从 set 中进行遍历
         for (int num : set) {
             // 如果num-1 不存在,只能向上。这里只处理每段的最小值，也就是不存在比他小1的值

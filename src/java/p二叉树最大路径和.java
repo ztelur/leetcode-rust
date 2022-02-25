@@ -78,6 +78,12 @@ public class Solution {
         if (node == null) {
             return 0;
         }
+        /**
+         * 将路径根据root划分成两段，一个左边，一个右边，
+         * 然后进行递归。可以找自己左右子节点的最大的。
+         * 所以以当前节点的最大的路径就是 val + left + right
+         */
+
         // 分别计算左右两个子树的最大贡献，因为有可能是负数，所以取一个 0
         int leftMaxGain = Math.max(maxGain(node.left), 0);
         int rightMaxGain = Math.max(maxGain(node.right), 0);

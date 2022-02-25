@@ -16,21 +16,22 @@ import java.util.Map;
  */
 class Solution {
     public int longestSubstring(String s, int k) {
-        return dfs(s, 0, s.length(), k);
+        return dfs(s, k, 0, s.length() - 1);
     }
 
     public int dfs(String s, int k, int left, int right) {
         int[] count = new int[26];
 
         // 计算每个字母出现的次数
-        for (int i = 0; i < s.length(); i ++) {
+        for (int i = left; i <= right; i ++) {
             count[s.charAt(i) - 'a'] += 1;
         }
 
         char split = 0;
 
-        for (int i = left; i <= right; i ++) {
-            if (count[i] < k) {
+        // 先找一个拆分点，找到了第一个
+        for (int i = 0; i < 26; i ++) {
+            if (count[i] > 0 && count[i] < k) {
                 split = (char)('a' + i);
                 break;
             }
@@ -45,7 +46,7 @@ class Solution {
 
         int i = left;
         int ret = 0;
-
+        // 拿到 split 去拆分
         while (i <= right) {
             // 跳过等于的。因为这里要截取一段都没有小于k的数据
             while (i <= right && s.charAt(i) == split) {
@@ -55,20 +56,18 @@ class Solution {
             if (i > right) {
                 break;
             }
-
+            // 找到了一个段的开始
             int start = i;
-
+            // 继续向下，如果一直不等于，则一直推进
             while (i <= right && s.charAt(i) != split) {
                 i ++;
             }
             // 无论是 = 了 split 还是超出了范围，都要进行这段的计算
 
-            int length = dfs(s, start, i - 1, k);
+            int length = dfs(s, k, start, i - 1);
 
             ret = Math.max(length, ret);
         }
         return ret;
     }
-
-
 }
