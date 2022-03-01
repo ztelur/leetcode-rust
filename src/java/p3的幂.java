@@ -1,5 +1,7 @@
 package java;
 
+import java.util.Map;
+
 /**
  * https://leetcode-cn.com/leetbook/read/top-interview-questions/x2lkle/
  *
@@ -11,6 +13,7 @@ package java;
 
 class Solution {
     public boolean isPowerOfThree(int n) {
+
         int curr = n;
         while (curr != 0 && curr % 3 == 0) {
             curr = curr / 3;
